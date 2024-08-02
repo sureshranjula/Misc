@@ -1,4 +1,5 @@
 import React from 'react';
+import { useContext } from 'react'
 import { AppBar, Toolbar, IconButton, Typography, InputBase, Badge, Avatar } from '@mui/material';
 import { styled, alpha } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -6,6 +7,10 @@ import SearchIcon from '@mui/icons-material/Search';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MailIcon from '@mui/icons-material/Mail';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import { ThemeContext } from './Themecontext'; 
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -47,9 +52,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const TopNavigationBar = () => {
+  const { theme, toggleTheme } = useContext(ThemeContext); // Use the ThemeContext
+
   return (
     <AppBar position="static" color="default">
       <Toolbar>
+
         <IconButton
           size="large"
           edge="start"
@@ -73,6 +81,7 @@ const TopNavigationBar = () => {
           </SearchIconWrapper>
           <StyledInputBase
             placeholder="Search Employees"
+
             inputProps={{ 'aria-label': 'search' }}
           />
         </Search>
@@ -81,17 +90,24 @@ const TopNavigationBar = () => {
           <Badge badgeContent={4} color="error">
             <NotificationsIcon />
           </Badge>
+
         </IconButton>
         <IconButton size="large" aria-label="show new mails" color="inherit">
           <Badge badgeContent={2} color="error">
+
             <MailIcon />
           </Badge>
         </IconButton>
         <IconButton size="large" aria-label="help" color="inherit">
+
           <HelpOutlineIcon />
         </IconButton>
         <IconButton size="large" edge="end" aria-label="account of current user" color="inherit">
+
           <Avatar alt="User Avatar" src="/api/placeholder/40/40" />
+        </IconButton>
+        <IconButton size="large" aria-label="toggle theme" color="inherit" onClick={toggleTheme}>
+          {theme === 'light' ? <Brightness4Icon /> : <Brightness7Icon />}
         </IconButton>
       </Toolbar>
     </AppBar>
